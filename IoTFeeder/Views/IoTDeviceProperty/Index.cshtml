@@ -1,0 +1,101 @@
+﻿@model IoTFeeder.Common.Models.IoTDevicePropertyViewModel
+@using Kendo.Mvc.UI
+@using IoTFeeder.Common.Common
+@{
+    ViewData["Title"] = "Properties Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/kendo/css/kendo.css")" rel="stylesheet" />
+<script src="@Url.Content("~/kendo/js/kendo.js")"></script>
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <h1 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    Properties Management
+                    <small class="text-muted fs-6 fw-normal ms-1"></small>
+                </h1>
+                <partial name="_BreadCrumb" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header border-0 pt-6">
+        <div class="col-md-12">
+            <div id="display-message">
+                <partial name="_CommonMessages" />
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="card-title mb-0">
+                    <div class="d-flex align-items-center position-relative c-searchbar my-1">
+                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
+                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+                            </svg>
+                        </span>
+                        <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14 me-4 searchName" id="txtSearch" placeholder="Search" onkeyup="Search()" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card-toolbar">
+                    <div class="d-flex justify-content-end">
+                        <div class="clearfix ptp5 pbp15">
+                            <a asp-action="create" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add New</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="Delete" method="post" class="form-horizontal formstyle">
+        <div class="card-body pt-0">
+            <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="table-responsive">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                        @(
+                        Html.Kendo().Grid<IoTFeeder.Common.Models.IoTDevicePropertyViewModel>()
+                        .Name("grid")
+                        .Events(e => e.DataBound("onGridDataBound"))
+                        .Columns(columns =>
+                        {
+                        columns.Bound(x => x.Id).ClientTemplate("<div class='form-check form-check-sm form-check-custom form-check-solid'><input type='checkbox' id='chkDelete' name='chkDelete' class='form-check-input singleCheckBox' value='#= Id #' onclick='return initializeSingleCheckBox(this);' /></div>").HtmlAttributes(new { style = "text-align:center" })
+                        .ClientHeaderTemplate("<div class='form-check form-check-sm form-check-custom form-check-solid'><input class='form-check-input' id='allCheckBox' name='allCheckBox' type='checkbox' title='check all records' onclick='return initializeAllCheckBox();' /></div>").HeaderHtmlAttributes(new { @style = "text-align:center;" }).Filterable(false).Groupable(false).Sortable(false);
+                        columns.Bound(x => x.Id).ClientTemplate("<a href='" + Url.Action("Edit", "IoTDeviceProperty", new { id = "#= Id #" }) + "'" + " title='Edit'><span class='fe fe-edit'></span></a>").HtmlAttributes(new { @class = "textalign" }).ClientHeaderTemplate(" ").Filterable(false).Groupable(false).Sortable(false);
+                        columns.Bound(u => u.DeviceName).ClientTemplate("<a href='" + Url.Action("Detail", "IoTDeviceProperty", new { id = "#= Id #" }) + "'" + " title = 'Detail' class='text-gray-800 text-hover-primary mb-1'>#= DeviceName #</a>").Title("Device Name").Width("100%");
+                        })
+                        .Pageable(pageable => pageable.Refresh(true)
+                        .PageSizes(GlobalCode.RecordPerPageList)
+                        .ButtonCount(GlobalCode.ButtonCount)
+                        .Input(true).Numeric(true))
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .PageSize(GlobalCode.PageSize)
+                        .Group(x =>
+                        {
+                        x.Add(y => y.DeviceName);
+                        })
+                        .Read(read => read.Action("_AjexBinding", "IoTDeviceProperty").Data("FilterData")))
+                        .Sortable()
+                        .Filterable()
+                        @*.Groupable()*@
+                        .EnableCustomBinding(true)
+                        )
+                    </table>
+
+                    <div class="pbp15 d-flex mt-3">
+                        <button class="btn btn-primary" onclick="return Check_CheckBox_Count(this);" type="button"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <script src="@Url.Content("~/js/custom/IoTDeviceProperty.js")"></script>
+}

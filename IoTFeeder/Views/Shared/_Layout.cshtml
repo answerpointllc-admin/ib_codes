@@ -1,0 +1,122 @@
+﻿@using IoTFeeder.Common.Common
+@using IoTFeeder.Common.Models
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    var readPath = Configuration.GetValue<string>("FilePath:FileReadPath");
+    var filePath = Configuration.GetValue<string>("FilePath:FilePath");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="Description" content="">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700" />
+
+    <!-- Title -->
+    <title> IoTFeeder |  @ViewData["Title"] </title>
+    <link rel="icon" href="@Url.Content("~/images/smallLogo.png")" type="image/x-icon" />
+    <link href="@Url.Content("~/css/layout-bundle.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/js/jquery-bundle.min.js")"></script>
+</head>
+
+<body class="main-body app sidebar-mini">
+    <div id="global-loader">
+        <img src="@Url.Content("~/images/loader.svg")" class="loader-img" alt="Loader">
+    </div>
+    <div class="page">
+        <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
+        <aside class="app-sidebar sidebar-scroll">
+            <div class="main-sidebar-header active">
+                <a class="desktop-logo logo-light active" asp-action="Index" asp-controller="Home"><img src="@Url.Content("~/images/IoTLogo.png")" class="main-logo main-icon" alt="logo" width="120px"></a>
+                <a class="desktop-logo logo-dark active" asp-action="home" asp-controller="home"><img src="@Url.Content("~/images/logo-white.png")" class="main-logo dark-theme" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-light active" asp-action="home" asp-controller="home"><img src="@Url.Content("~/images/smallLogo.png")" class="logo-icon" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-dark active" asp-action="home" asp-controller="home"><img src="@Url.Content("~/images/icons/favicon-white.png")" class="logo-icon dark-theme" alt="logo"></a>
+            </div>
+
+            <div class="main-sidemenu">
+                <ul class="side-menu">
+                    <li class="slide">
+                        <a class="side-menu__item" asp-controller="Home" asp-action="Index">
+                            <i class="fa fa-home side-menu__icon"></i><span class="side-menu__label">Home</span>
+                        </a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" asp-controller="IoTDevice" asp-action="Index">
+                            <i class="fa fa-microchip side-menu__icon"></i><span class="side-menu__label">IoT Device</span>
+                        </a>
+                    </li>
+                    <li class="slide">
+                        <a class="side-menu__item" data-bs-toggle="slide" href="#">
+                            <i class="fa fa-window-restore side-menu__icon"></i><span class="side-menu__label">Additional Info</span>
+                        </a>
+                        <ul class="slide-menu">
+                            <li>
+                                <a class="slide-item" asp-controller="IotDeviceProperty" asp-action="Index">
+                                    <i class="fa fa-tasks side-menu__icon"></i><span class="side-menu__label">Device Properties</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a class="slide-item" asp-controller="IotDeviceFrequency" asp-action="Index">
+                                    <i class="fa fa-signal side-menu__icon"></i><span class="side-menu__label">Device Frequency</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="main-content app-content">
+            <div class="main-header sticky side-header nav nav-item">
+                <div class="container-fluid">
+                    <div class="main-header-left ">
+                        <div class="responsive-logo">
+                            <a asp-action="home" asp-controller="home">
+                                <img src="@Url.Content("~/images/IoTLogo.png")" class="logo-1"
+                                     alt="logo" width="120px">
+                            </a>
+                            <a asp-action="home" asp-controller="home">
+                                <img src="@Url.Content("~/images/logo-white.png")" class="dark-logo-1"
+                                     alt="logo">
+                            </a>
+                            <a asp-action="home" asp-controller="home">
+                                <img src="@Url.Content("~/images/icons/IoTFeeder_favicon_64x64.png")" class="logo-2"
+                                     alt="logo">
+                            </a>
+                            <a asp-action="home" asp-controller="home">
+                                <img src="@Url.Content("~/images/icons/favicon-white.png")" class="dark-logo-2"
+                                     alt="logo">
+                            </a>
+                        </div>
+                        <div class="app-sidebar__toggle" data-bs-toggle="sidebar">
+                            <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
+                            <a class="close-toggle" href="#"><i class="header-icons fe fe-x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                @RenderBody()
+
+            </div>
+        </div>
+        <div class="main-footer ht-40">
+            <div class="container-fluid pd-t-0-f ht-100p">
+                <span>Copyright © @DateTime.UtcNow.Year <a asp-action="Index" asp-controller="home">IoTFeeder</a>. </span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#top" id="back-to-top"><i class="fe fe-chevrons-up"></i></a>
+
+    <script src="@Url.Content("~/js/layout-bundle.js")"></script>
+
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

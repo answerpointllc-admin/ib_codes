@@ -1,0 +1,1 @@
+Scaffold-DbContext "Server=192.169.177.110,3666;Database=IotDataFeeder;UID=IotDataFeederUser;PWD=IotDataFeeder@123;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DB -Force

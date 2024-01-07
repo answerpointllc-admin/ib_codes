@@ -1,0 +1,95 @@
+[
+  {
+    "outputFileName": "wwwroot/css/login-bundle.css",
+    "inputFiles": [
+      "wwwroot/css/common/icons.css",
+      "wwwroot/css/common/style.css",
+      "wwwroot/css/common/toastr.css",
+      "wwwroot/css/custom/dev-style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/login-bundle.js",
+    "inputFiles": [
+      "wwwroot/js/common/jquery.min.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/common/bootstrap.bundle.min.js",
+      "wwwroot/js/common/toastr.js",
+      "wwwroot/js/common/custom.js",
+      "wwwroot/js/custom/common.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/layout-bundle.css",
+    "inputFiles": [
+      "wwwroot/css/common/icons.css",
+      "wwwroot/css/common/bootstrap.min.css",
+      "wwwroot/css/common/bootstrap-datetimepicker.css",
+      "wwwroot/css/common/p-scrollbar.css",
+      "wwwroot/css/common/sidebar.css",
+      "wwwroot/css/common/sidemenu.css",
+      "wwwroot/css/common/style.css",
+      "wwwroot/css/common/style-dark.css",
+      "wwwroot/css/common/boxed.css",
+      "wwwroot/css/common/dark-boxed.css",
+      "wwwroot/css/common/skin-modes.css",
+      "wwwroot/css/common/sweetalert2.bundle.css",
+      "wwwroot/css/common/toastr.css",
+      "wwwroot/css/common/jquery.multiselect.css",
+      "wwwroot/css/custom/dev-style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/layout-bundle.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "wwwroot/js/common/popper.min.js",
+      "wwwroot/js/common/bootstrap.bundle.min.js",
+      "wwwroot/js/common/moment.js",
+      "wwwroot/js/common/bootstrap-datetimepicker.js",
+      "wwwroot/js/common/perfect-scrollbar.min.js",
+      "wwwroot/js/common/sidebar.js",
+      "wwwroot/js/common/jquery.maskedinput.min.js",
+      "wwwroot/js/common/sidebar-custom.js",
+      "wwwroot/js/common/sticky.js",
+      "wwwroot/js/common/sidemenu.js",
+      "wwwroot/js/common/sweetalert2.bundle.js",
+      "wwwroot/js/common/toastr.js",
+      "wwwroot/js/common/custom.js",
+      "wwwroot/js/custom/common.js"
+
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery-bundle.js",
+    "inputFiles": [
+      "wwwroot/js/common/jquery.min.js",
+      "wwwroot/js/custom/siteurl.js",
+      "wwwroot/js/common/moment.js",
+      "wwwroot/js/common/bootstrap-datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/user-bundle.js",
+    "inputFiles": [
+      "wwwroot/js/common/jquery.maskedinput.min.js",
+      "wwwroot/js/common/passwordStrengthMeter.js",
+      "wwwroot/js/common/moment.js",
+      "wwwroot/js/common/bootstrap-datetimepicker.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/custom/tutor.min.js",
+    "inputFiles": [
+      "wwwroot/js/custom/tutor.js"
+    ]
+  }
+]

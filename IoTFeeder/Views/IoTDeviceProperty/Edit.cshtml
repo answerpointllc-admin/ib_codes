@@ -1,0 +1,174 @@
+﻿@using IoTFeeder.Common.Common
+@model IoTFeeder.Common.Models.IoTDevicePropertyViewModel
+@{
+    ViewData["Title"] = "Edit Properties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <h1 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    Edit Properties
+                    <small class="text-muted fs-6 fw-normal ms-1"></small>
+                </h1>
+                <partial name="_BreadCrumb" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form class="form" asp-action="Edit" enctype="multipart/form-data" id="blogform">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="IoTDeviceId" />
+            <div class="row">
+                <div class="col-sm-12 col-lg-5">
+                    <div class="form-group">
+                        <label asp-for="IoTDeviceId">IoT Device <span class="text-danger">*</span></label>
+                        @*<select asp-for="IoTDeviceId" asp-items="Model.SelectedDevice" class="form-control borderfix">
+                        <option value="" selected="selected">- Select ioT Device -</option>
+                        </select>*@
+                        <input type="text" asp-for="DeviceName" maxlength="50" class="form-control" placeholder="Device name" disabled="disabled">
+                        <span asp-validation-for="IoTDeviceId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="language-section" class="col-md-12">
+                    <div class="addPropertyList">
+                        <input type="hidden" asp-for="StrProperty" />
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (var item in Model.ioTDeviceProperties)
+                        {
+                            <div class="row addfields">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <input type="text" asp-for="@item.PropertyName" id="PropertyName" maxlength="50" class="form-control" placeholder="Property name">
+                                        <span asp-validation-for="@item.PropertyName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <select asp-for="@item.DataTypeId" id="DataTypeId" asp-items="Model.SelectDataType" class="form-control borderfix" onchange="return divHide(this);">
+                                            <option value="" selected="selected">- Select Data Type -</option>
+                                        </select>
+                                        <span asp-validation-for="@item.DataTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @{
+                                    bool isBoolean = (item.DataTypeId == 4 ? true : false);
+                                }
+                                @{
+                                    bool isDateTime = (item.DataTypeId == 5 ? true : false);
+                                }
+                                @{
+                                    bool isString = (item.DataTypeId == 3 ? true : false);
+                                }
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        @if (isString)
+                                        {
+                                            <input type="text" asp-for="@item.MinValue" id="MinValue" value="@item.MaxLength" maxlength="50" class="form-control" placeholder="Max Length">
+                                            <span asp-validation-for="@item.MinValue" class="text-danger"></span>
+                                        }
+                                        else if (!isBoolean && !isDateTime)
+                                        {
+                                            <input type="text" asp-for="@item.MinValue" id="MinValue" maxlength="50" class="form-control" placeholder="Min Value">
+                                            <span asp-validation-for="@item.MinValue" class="text-danger"></span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        @if (!isBoolean && !isString && !isDateTime)
+                                        {
+                                            <input type="text" asp-for="@item.MaxValue" id="MaxValue" maxlength="50" class="form-control" placeholder="Max Value">
+                                            <span asp-validation-for="@item.MaxValue" class="text-danger"></span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    @if (i != 0)
+                                    {
+                                        <button type="button" onclick="removeDiv(this)" class="btn" title="delete" style="color:#b6b8bd">
+                                            <i class="fa fa-trash fa-1.5x" style="font-size:20px"></i>
+                                        </button>
+                                    }
+                                    @{
+                                        i = i + 1;
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <a onclick="appendDiv()" href="javascript:;" style="color:#D1AF5D">Add New</a>
+                    <div id="hdnTimeFields" class=" d-none">
+                        <div class="row addfields">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type="text" asp-for="PropertyName" maxlength="50" class="form-control" placeholder="Property name">
+                                    <span asp-validation-for="PropertyName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <select asp-for="DataTypeId" asp-items="Model.SelectDataType" class="form-control borderfix" onchange="return divHide(this);">
+                                        <option value="" selected="selected">- Select Data Type -</option>
+                                    </select>
+                                    <span asp-validation-for="DataTypeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type="text" asp-for="MinValue" maxlength="50" class="form-control" placeholder="Min Value">
+                                    <span asp-validation-for="MinValue" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <input type="text" asp-for="MaxValue" maxlength="50" class="form-control" placeholder="Max Value">
+                                    <span asp-validation-for="MaxValue" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <button type="button" onclick="removeDiv(this)" class="btn" title="delete" style="color:#b6b8bd">
+                                    <i class="fa fa-trash fa-1.5x" style="font-size:20px"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="IsActive">Status</label>
+                        <div>
+                            <label>
+                                <input type="radio" asp-for="IsActive" value="true" /> Active
+                            </label>
+                            <label>
+                                <input type="radio" asp-for="IsActive" value="false" /> Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" onclick="statusChange();" class="btn btn-primary" id="btnUpdate">
+                    Update
+                </button>
+                <a asp-action="Index" class="btn btn-custom m-1">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="@Url.Content("~/js/custom/IoTDeviceProperty.js")"></script>
+}

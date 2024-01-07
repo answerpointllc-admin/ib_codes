@@ -1,0 +1,104 @@
+﻿@using IoTFeeder.Common.Common
+@model IoTFeeder.Common.Models.IoTDeviceViewModel
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Frequency Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <h1 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    Frequency Detail
+                    <small class="text-muted fs-6 fw-normal ms-1"></small>
+                </h1>
+                <partial name="_BreadCrumb" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form class="form-horizontal formstyle">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <label asp-for="DeviceName" class="col-sm-12 col-lg-3">Device Name:</label>
+                        <div class="col-sm-12 col-lg-6">
+                            @Html.DisplayFor(model => model.DeviceName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row pt-1">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <label asp-for="FrequencyTypeText" class="col-sm-12 col-lg-3">FrequencyType :</label>
+                        <div class="col-sm-12 col-lg-6">
+                            @Html.DisplayFor(model => model.FrequencyTypeText)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (Model.FrequencyType == true)
+            {
+                <div class="row pt-1">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="row">
+                            <label asp-for="MinValue" class="col-sm-12 col-lg-3">Min Value :</label>
+                            <div class="col-sm-12 col-lg-6">
+                                @Html.DisplayFor(model => model.MinValue)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="row">
+                            <label asp-for="MaxValue" class="col-sm-12 col-lg-3">Max Value :</label>
+                            <div class="col-sm-12 col-lg-6">
+                                @Html.DisplayFor(model => model.MaxValue)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row pt-1">
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="row">
+                            <label asp-for="Frequency" class="col-sm-12 col-lg-3">Fix Value :</label>
+                            <div class="col-sm-12 col-lg-6">
+                                @Html.DisplayFor(model => model.Frequency)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row pt-1">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <label asp-for="Active" class="col-sm-12 col-lg-3">Status :</label>
+                        <div class="col-sm-12 col-lg-6">
+                            @Html.DisplayFor(model => model.Active)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-9 col-lg-offset-3">
+                            <a asp-action="Index" class="formgraybtn mtp5 btn btn-custom">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

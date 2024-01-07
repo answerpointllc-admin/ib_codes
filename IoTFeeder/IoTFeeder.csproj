@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.Kusto.Ingest" Version="10.1.1" />
+    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2019.2.619" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IoTFeeder.Common\IoTFeeder.Common.csproj" />
+  </ItemGroup>
+
+</Project>

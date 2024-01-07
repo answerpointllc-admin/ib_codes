@@ -1,0 +1,104 @@
+﻿@using IoTFeeder.Common.Common
+@model IoTFeeder.Common.Models.IoTDeviceViewModel
+@{
+    ViewData["Title"] = "Edit Frequency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <h1 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    Edit Frequency
+                    <small class="text-muted fs-6 fw-normal ms-1"></small>
+                </h1>
+                <partial name="_BreadCrumb" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form class="form" asp-action="Edit" enctype="multipart/form-data" id="blogform">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Id">IoT Device <span class="text-danger">*</span></label>
+                        <select asp-for="Id" asp-items="Model.SelectedDevice" class="form-control borderfix">
+                            <option value="" selected="selected">- Select ioT Device -</option>
+                        </select>
+                        @*<input type="Id" asp-for="DeviceName" maxlength="50" class="form-control" placeholder="Device name">*@
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6" id="frequencyTypeId">
+                    <div class="form-group">
+                        <label asp-for="FrequencyType">Frequency Type</label>
+                        <div>
+                            <label>
+                                <input type="radio" asp-for="FrequencyType" value="true" /> Random
+                            </label>
+                            <label>
+                                <input type="radio" asp-for="FrequencyType" value="false" /> Fixed
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none" id="range">
+                <div class="col-sm-12 col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="MinValue">Min value <span class="text-danger">*</span> (in minute)</label>
+                        <input type="number" asp-for="MinValue" maxlength="3" class="form-control" placeholder="Min Value">
+                        <span asp-validation-for="MinValue" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="MaxValue">Max value <span class="text-danger">*</span> (in minute)</label>
+                        <input type="number" asp-for="MaxValue" maxlength="3" class="form-control" placeholder="Max Value">
+                        <span asp-validation-for="MaxValue" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="fix">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="Frequency">Fix value <span class="text-danger">*</span> (in minute)</label>
+                        <input type="number" asp-for="Frequency" maxlength="3" class="form-control" placeholder="Fix Value">
+                        <span asp-validation-for="Frequency" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="form-group">
+                        <label asp-for="IsActive">Status</label>
+                        <div>
+                            <label>
+                                <input type="radio" asp-for="IsActive" value="true" /> Active
+                            </label>
+                            <label>
+                                <input type="radio" asp-for="IsActive" value="false" /> Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="btnSave">
+                    Save
+                </button>
+                <a asp-action="Index" class="btn btn-custom m-1">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="@Url.Content("~/js/custom/IoTDeviceFrequency.js")"></script>
+}

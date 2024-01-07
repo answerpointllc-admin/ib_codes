@@ -1,0 +1,138 @@
+﻿@using IoTFeeder.Common.Common
+@{
+    Microsoft.Extensions.Primitives.StringValues queryVal;
+    string Msg = "";
+    bool success = false;
+}
+@if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "added")
+{
+    success = true;
+    Msg = string.Format(Messages.Added, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "updated")
+{
+    success = true;
+    Msg = string.Format(Messages.Updated, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "recoverylink")
+{
+    success = true;
+    Msg = Messages.ResetPasswordMail;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "currentroleupdate")
+{
+    success = true;
+    Msg = string.Format(Messages.CurrentRoleUpdated, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "deleted")
+{
+    success = true;
+    Msg = string.Format(Messages.Deleted, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "inuse")
+{
+    success = false;
+    Msg = string.Format(Messages.IsInUse, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "drop")
+{
+    success = false;
+    Msg = Messages.Drop;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "noselect")
+{
+    success = false;
+    Msg = Messages.NoSelect;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "admin")
+{
+    success = false;
+    Msg = Messages.NotEditAdmin;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "unauthorize")
+{
+    success = false;
+    Msg = Messages.NotAuthorized;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "logout")
+{
+    success = true;
+    Msg = Messages.SuccessLogOut;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "forgot")
+{
+    success = true;
+    Msg = Messages.ResetPasswordMail;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "reset")
+{
+    success = true;
+    Msg = Messages.SuccessResetPassword;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "changed")
+{
+    success = true;
+    Msg = string.Format(Messages.SuccessChanged, "Password");
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "profile")
+{
+    success = true;
+    Msg = Messages.UserProfileUpdated;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "error")
+{
+    success = false;
+    Msg = Messages.Error;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "noteditadmin")
+{
+    success = false;
+    Msg = Messages.NotEditAdmin;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "registrationfailed")
+{
+    success = false;
+    Msg = Messages.RegistrationFailed;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "signup")
+{
+    success = true;
+    Msg = Messages.SignupSuccess;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "notdeleted")
+{
+    success = true;
+    Msg = string.Format(Messages.NotDeleted, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "notadded")
+{
+    success = false;
+    Msg = string.Format(Messages.NotAdded, Convert.ToString(ViewBag.ModuleName));
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "notificationsent")
+{
+    success = true;
+    Msg = Messages.NotificationSent;
+}
+else if (Context.Request.Query.TryGetValue("msg", out queryVal) && queryVal.FirstOrDefault().ToLower() == "bookingcompleted")
+{
+    success = true;
+    Msg = Messages.BookingCompleted;
+}
+
+<script>
+    $(function() {
+        if ('@Msg' != '') {
+            var status = "success";
+
+            if ('@success'.toLowerCase() == 'false')
+                status = "error";
+            toastMsg('@Msg', '@success'.toLowerCase() == "true");
+        }
+
+        if (window.location.href.indexOf('?') > -1) {
+            var url = removeURLParameter(window.location.href, "msg");
+            history.pushState('', document.title, url);
+        }
+    });
+</script>

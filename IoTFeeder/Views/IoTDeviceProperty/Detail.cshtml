@@ -1,0 +1,97 @@
+﻿@using IoTFeeder.Common.Common
+@model IoTFeeder.Common.Models.IoTDevicePropertyViewModel
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Properties Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="toolbar" id="kt_toolbar">
+    <div class="container-fluid d-flex flex-stack flex-wrap flex-sm-nowrap">
+        <div class="breadcrumb-header justify-content-between">
+            <div class="left-content">
+                <h1 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">
+                    Properties Detail
+                    <small class="text-muted fs-6 fw-normal ms-1"></small>
+                </h1>
+                <partial name="_BreadCrumb" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form class="form-horizontal formstyle">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <label asp-for="DeviceName" class="col-sm-12 col-lg-3">Device Name:</label>
+                        <div class="col-sm-12 col-lg-6">
+                            @Html.DisplayFor(model => model.DeviceName)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row" style="font-family:" Roboto", sans-serif">
+                        @if (Model.ioTDeviceProperties != null && Model.ioTDeviceProperties.Count > 0)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>Property Name</td>
+                                        <td>Data Type</td>
+                                        <td>Min Value</td>
+                                        <td>Max Value</td>
+                                        <td>Max Length</td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.ioTDeviceProperties)
+                                {
+                                    <tbody class="table-striped">
+                                        <tr>
+                                            <td><span>@item.PropertyName</span></td>
+                                            <td><span>@item.DataType</span></td>
+                                            @if (item.DataTypeId == 1)
+                                            {
+                                                <td><span> @Convert.ToInt32(item.MinValue)</span></td>
+                                                <td><span>@Convert.ToInt32(item.MaxValue)</span></td>
+                                            }
+                                            else@* if (item.DataTypeId == 2)*@
+                                            {
+                                                <td><span>@item.MinValue</span></td>
+                                                <td><span>@item.MaxValue</span></td>
+                                            }
+                                                <td><span>@item.MaxLength</span></td>
+                                        </tr>
+                                    </tbody>
+                                }
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <label asp-for="Active" class="col-sm-12 col-lg-3">Status :</label>
+                        <div class="col-sm-12 col-lg-6">
+                            @Html.DisplayFor(model => model.Active)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-9 col-lg-offset-3">
+                            <a asp-action="Index" class="formgraybtn mtp5 btn btn-custom">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
